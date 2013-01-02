@@ -28,8 +28,7 @@ module LazyHighCharts
       options_collection << %|"series": [#{generate_json_from_array(object.data)}]|
 
       core_js =<<-EOJS
-        var options;
-        options = { #{options_collection.join(',')} };
+        var options = { #{options_collection.join(',')} };
         #{capture(&block) if block_given?}
         console.log("Doin it");
         window.chart_#{placeholder} = new Highcharts.#{type}(options);
