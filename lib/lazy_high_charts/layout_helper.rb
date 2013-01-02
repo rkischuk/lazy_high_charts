@@ -28,10 +28,11 @@ module LazyHighCharts
       options_collection << %|"series": [#{generate_json_from_array(object.data)}]|
 
       core_js =<<-EOJS
-        var options, chart;
+        var chart_#{placeholder};
+        var options;
         options = { #{options_collection.join(',')} };
         #{capture(&block) if block_given?}
-        chart = new Highcharts.#{type}(options);
+        chart_#{placeholder} = new Highcharts.#{type}(options);
       EOJS
 
       if defined?(request) && request.respond_to?(:xhr?) && request.xhr?
